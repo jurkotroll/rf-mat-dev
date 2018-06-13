@@ -7,11 +7,20 @@
                  [org.clojure/core.async "0.2.391"]
                  [re-com "2.1.0"]
                  [secretary "1.2.3"]
-                 [compojure "1.5.0"]
+                 [compojure "1.6.1"]
                  [yogthos/config "0.8"]
-                 [ring "1.4.0"]]
+                 [ring "1.6.3"]
+                 [ring/ring-json "0.4.0"]
+                 [ring/ring-defaults "0.3.2"]
+                 [lein-heroku "0.5.3"]
+                 [cljsjs/react "16.4.0-0"]
+                 [cljsjs/react-dom "16.4.0-0"]
+                 [cljs-react-material-ui "0.2.50"]
+                 [day8.re-frame/http-fx "0.1.6"]                 ]
 
-  :plugins [[lein-cljsbuild "1.1.7"]]
+  :plugins [[lein-cljsbuild "1.1.7"]
+            [lein-ring "0.12.4"]
+            [lein-npm "0.6.2"]]
 
   :min-lein-version "2.5.3"
 
@@ -24,7 +33,8 @@
              :ring-handler rf-mat-dev.handler/dev-handler}
 
   :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
-
+  :ring {:handler rf-mat-dev.handler/handler}
+  :heroku {:app-name "rf-mat-dev"}
   :aliases {"dev" ["do" "clean"
                         ["pdo" ["figwheel" "dev"]]]
             "build" ["with-profile" "+prod,-dev" "do"
@@ -42,7 +52,8 @@
 
     :plugins      [[lein-figwheel "0.5.16"]
                    [lein-doo "0.1.8"]
-                   [lein-pdo "0.1.1"]]}
+                   [lein-pdo "0.1.1"]]
+    :uberjar {:main rf-mat-dev.server, :aot :all}}
    :prod { :dependencies [[day8.re-frame/tracing-stubs "0.5.1"]]}}
 
   :cljsbuild
